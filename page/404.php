@@ -2,7 +2,7 @@
 	<header>
 		<hgroup>
 			<h1>404, Page doesn't exist</h1>
-		<hgroup>
+		</hgroup>
 	</header>
 
 	<article class="content">
