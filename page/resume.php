@@ -1,19 +1,16 @@
 <?php 
 if (isset($uri[2]) && !empty($uri[2])) {
-	$sql = mysql_query("SELECT `id`, `ident` FROM `resumes`") or die(mysql_error());
-	while ($row = mysql_fetch_assoc($sql)) {
-		if ($row['ident'] == $uri[2]) {
-			$resume_id = $row['id'];
-		}
-	}
-	$sql2 = mysql_query("SELECT `id`, `title`, `text` FROM `resumes` WHERE `id`='".$resume_id."' LIMIT 1") or die(mysql_error());
-	$row2 = mysql_fetch_assoc($sql2);
-	if (mysql_num_rows($sql2) == 0) {
+	/* Identify the resume */
+	$sql = mysql_query("SELECT `id`, `title`, `ident` FROM `resumes` WHERE `ident`='".mysql_real_escape_string($uri[2])."'") or die(mysql_error());	
+	$row = mysql_fetch_assoc($sql);
+	if (mysql_num_rows($sql) == 0) {
 		relocate('/404');
 	}
 	else {
-		$title = $row2['title'];
-		$text = nl2br($row2['text']);
+		$id = $row['id'];
+		$ident = $row['ident'];
+		$title = $row['title'];
+		$text = nl2br($row['text']);
 	}
 }
 else {
